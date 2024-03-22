@@ -1,0 +1,75 @@
+pipeline {
+    
+    agent any 
+    
+    environment {
+        IMAGE_TAG = "${BUILD_NUMBER}"
+    }
+
+    stages {
+        
+                
+        // stage('Checkout'){
+        //    steps {
+        //         git credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', 
+        //         url: 'https://github.com/iam-veeramalla/cicd-end-to-end',
+        //         branch: 'main'
+        //    }
+        // }
+
+        stage('Build Docker'){
+            steps{
+                script{
+                    sh '''
+                    echo 'Buid Docker Image'
+                    cd /var/jenkins_home/workspace/Pipelines/python_argoCd_jenkins/ 
+                    docker build -t sid716/jenkins_argocd_pipelines_sample:${BUILD_NUMBER} .
+                    '''
+                }
+            }
+        }
+
+        stage('Push the artifacts'){
+           steps{
+                script{
+                    sh '''
+                    echo 'Push to Repo'
+                    docker login -u sid716 -p Siddu716$
+                    docker push sid716/jenkins_argocd_pipelines_sample:${BUILD_NUMBER}
+                    '''
+                }
+            }
+        }
+        
+        // stage('Checkout K8S manifest SCM'){
+        //     steps {
+        //         git credentialsId: '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', 
+        //         url: 'https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git',
+        //         branch: 'main'
+        //     }
+        // }
+        
+        stage('Update K8S manifest & push to Repo'){
+            steps {
+                script{
+                    withCredentials([usernamePassword(credentialsId: 'ada1acea-a673-4b37-b095-aa43762cf44e', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                        sh '''
+                        cd /var/jenkins_home/workspace/Pipelines/python_argoCd_jenkins/deploy/
+                        cat deploy.yaml
+                        
+                        sed -i "s@sid716.*@sid716/jenkins_argocd_pipelines_samples:${BUILD_NUMBER}@g" deploy.yaml
+                        cat deploy.yaml
+
+                        git add deploy.yaml
+                        git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+
+                        git remote -v
+                        echo " "
+                        git push https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git HEAD:main
+                        '''                        
+                    }
+                }
+            }
+        }
+    }
+}

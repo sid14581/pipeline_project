@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: todo-app
+spec:
+  containers:
+  - name: todo-app
+    image: sid716/jenkins_argocd_pipelines_sample:v1
+    ports:
+    - containerPort: 8000
