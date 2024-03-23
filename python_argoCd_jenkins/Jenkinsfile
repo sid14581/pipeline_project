@@ -9,13 +9,13 @@ pipeline {
     stages {
         
                 
-        // stage('Checkout'){
-        //    steps {
-        //         git credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', 
-        //         url: 'https://github.com/iam-veeramalla/cicd-end-to-end',
-        //         branch: 'main'
-        //    }
-        // }
+        stage('Checkout'){
+           steps {
+                git credentialsId: '0216668a-1ad3-4e4d-97e6-14eed63e2da2', 
+                url: 'https://github.com/iam-veeramalla/cicd-end-to-end',
+                branch: 'main'
+           }
+        }
 
         stage('Build Docker'){
             steps{
@@ -40,13 +40,13 @@ pipeline {
             }
         }
         
-        // stage('Checkout K8S manifest SCM'){
-        //     steps {
-        //         git credentialsId: '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', 
-        //         url: 'https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git',
-        //         branch: 'main'
-        //     }
-        // }
+        stage('Checkout K8S manifest SCM'){
+            steps {
+                git credentialsId: '0216668a-1ad3-4e4d-97e6-14eed63e2da2', 
+                url: 'https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git',
+                branch: 'main'
+            }
+        }
         
         stage('Update K8S manifest & push to Repo'){
             steps {
