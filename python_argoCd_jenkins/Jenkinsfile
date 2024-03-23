@@ -22,7 +22,6 @@ pipeline {
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-                    cd /var/jenkins_home/workspace/Pipelines/python_argoCd_jenkins/ 
                     docker build -t sid716/jenkins_argocd_pipelines_sample:${BUILD_NUMBER} .
                     '''
                 }
@@ -52,9 +51,8 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'ada1acea-a673-4b37-b095-aa43762cf44e', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: '0216668a-1ad3-4e4d-97e6-14eed63e2da2', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
-                        cd /var/jenkins_home/workspace/Pipelines/python_argoCd_jenkins/deploy/
                         cat deploy.yaml
                         
                         sed -i "s@sid716.*@sid716/jenkins_argocd_pipelines_samples:${BUILD_NUMBER}@g" deploy.yaml
