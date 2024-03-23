@@ -49,7 +49,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: '018a1d01-02a7-4854-b556-c77635ada871', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
 
-                        cd /var/jenkins_home/workspace/Pipeline_execution/deploy/
+                        cd /var/jenkins_home/workspace/Pipeline_execution/python_argoCd_jenkins/deploy/
 
                         cat deploy.yaml
                         
