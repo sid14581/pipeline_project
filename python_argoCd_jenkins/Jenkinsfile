@@ -4,25 +4,27 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
+
     }
 
     stages {
-        
-                
-        // stage('Checkout'){
-        //    steps {
-        //         git credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', 
-        //         url: 'https://github.com/iam-veeramalla/cicd-end-to-end',
-        //         branch: 'main'
-        //    }
-        // }
+                        
+        stage('Checkout'){
+           steps {
+                script {
+                    git branch: 'main',
+                        credentialsId: '018a1d01-02a7-4854-b556-c77635ada871',
+                        url: 'https://github.com/sid14581/pipeline_project.git'
+                }
+           }           
+        }
 
         stage('Build Docker'){
             steps{
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-                    cd /var/jenkins_home/workspace/Pipelines/python_argoCd_jenkins/ 
+                    cd  /var/jenkins_home/workspace/Pipeline_execution/python_argoCd_jenkins/
                     docker build -t sid716/jenkins_argocd_pipelines_sample:${BUILD_NUMBER} .
                     '''
                 }
@@ -40,21 +42,51 @@ pipeline {
                 }
             }
         }
-        
-        // stage('Checkout K8S manifest SCM'){
+
+        // stage('Update K8S manifest & push to Repo'){
         //     steps {
-        //         git credentialsId: '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', 
-        //         url: 'https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git',
-        //         branch: 'main'
+        //         script{
+        //             withCredentials([usernamePassword(credentialsId: '018a1d01-02a7-4854-b556-c77635ada871', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+        //                 sh '''
+
+        //                 cd /var/jenkins_home/workspace/Pipeline_execution/deploy/
+
+        //                 cat deploy.yaml
+                        
+        //                 sed -i "s@sid716.*@sid716/jenkins_argocd_pipelines_samples:${BUILD_NUMBER}@g" deploy.yaml
+        //                 cat deploy.yaml
+
+        //                 git add deploy.yaml
+        //                 git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+        //                 echo " "
+        //                 git remote -v
+        //                 echo " "
+                        
+        //                 git push origin main
+        //                 '''                        
+        //             }
+        //         }
         //     }
         // }
+        
+        stage('Checkout K8S manifest SCM'){
+            steps {
+                script {
+                    git branch: 'main',
+                        credentialsId: '018a1d01-02a7-4854-b556-c77635ada871',
+                        url: 'https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git'
+                }
+            }
+        }
         
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'ada1acea-a673-4b37-b095-aa43762cf44e', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: '018a1d01-02a7-4854-b556-c77635ada871', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
-                        cd /var/jenkins_home/workspace/Pipelines/python_argoCd_jenkins/deploy/
+
+                        cd /var/jenkins_home/workspace/Pipeline_execution/deploy/
+
                         cat deploy.yaml
                         
                         sed -i "s@sid716.*@sid716/jenkins_argocd_pipelines_samples:${BUILD_NUMBER}@g" deploy.yaml
@@ -62,10 +94,11 @@ pipeline {
 
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
-
+                        echo " "
                         git remote -v
                         echo " "
-                        git push https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git HEAD:main
+                        
+                        git push origin main
                         '''                        
                     }
                 }
