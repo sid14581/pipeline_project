@@ -82,7 +82,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: '018a1d01-02a7-4854-b556-c77635ada871', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    //withCredentials([usernamePassword(credentialsId: '018a1d01-02a7-4854-b556-c77635ada871', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
 
                         cd /var/jenkins_home/workspace/Pipeline_execution/deploy/
@@ -98,9 +98,9 @@ pipeline {
                         git remote -v
                         echo " "
                         
-                        git push origin main -f
+                        git push origin main 
                         '''                        
-                    }
+                   // }
                 }
             }
         }
