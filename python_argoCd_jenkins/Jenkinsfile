@@ -22,6 +22,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Buid Docker Image'
+                    C:\ProgramData\Jenkins\.jenkins\workspace\Pipelines\python_argoCd_jenkins\
                     docker build -t sid716/jenkins_argocd_pipelines_sample:${BUILD_NUMBER} .
                     '''
                 }
