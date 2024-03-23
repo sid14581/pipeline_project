@@ -62,7 +62,7 @@ pipeline {
                         git remote -v
                         echo " "
                         
-                        git push origin main
+                        git push https://github.com/sid14581/pipeline_project.git HEAD:main
                         '''                        
                     }
                 }
@@ -98,7 +98,7 @@ pipeline {
         //                 git remote -v
         //                 echo " "
                         
-        //                 git push origin main 
+        //                 git push https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git HEAD:main
         //                 '''                        
         //             }
         //         }
