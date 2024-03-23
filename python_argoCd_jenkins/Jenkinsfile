@@ -98,7 +98,7 @@ pipeline {
                         git remote -v
                         echo " "
                         
-                        git push origin main
+                        git push origin main -f
                         '''                        
                     }
                 }
