@@ -57,7 +57,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([string(credentialsId: 'damdamYO', variable: 'GITHUB_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'damdamGithub', variable: 'GITHUB_TOKEN')]) {
                         sh '''
 
                         cd /var/jenkins_home/workspace/Pipeline_execution/deploy/
