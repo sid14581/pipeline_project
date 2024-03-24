@@ -4,6 +4,7 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
+        DAMDAM = '018a1d01-02a7-4854-b556-c77635ada871'
 
     }
 
@@ -58,7 +59,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([string(credentialsId: '018a1d01-02a7-4854-b556-c77635ada871', variable: 'GITHUB_TOKEN')]) {
+                    withCredentials([string(credentialsId: "${DAMDAM}", variable: 'GITHUB_TOKEN')]) {
                         sh '''
 
                         cd /var/jenkins_home/workspace/Pipeline_execution/deploy/
