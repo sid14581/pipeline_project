@@ -79,41 +79,5 @@ pipeline {
                 }
             }
         }
-        
-        // stage('Checkout K8S manifest SCM'){
-        //     steps {
-        //         script {
-        //             git branch: 'main',
-        //                 credentialsId: '018a1d01-02a7-4854-b556-c77635ada871',
-        //                 url: 'https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git'
-        //         }
-        //     }
-        // }
-        
-        // stage('Update K8S manifest & push to Repo'){
-        //     steps {
-        //         script{
-        //             withCredentials([usernamePassword(credentialsId: '018a1d01-02a7-4854-b556-c77635ada871', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-        //                 sh '''
-
-        //                 cd /var/jenkins_home/workspace/Pipeline_execution/deploy/
-
-        //                 cat deploy.yaml
-                        
-        //                 sed -i "s@sid716.*@sid716/jenkins_argocd_pipelines_samples:${BUILD_NUMBER}@g" deploy.yaml
-        //                 cat deploy.yaml
-
-        //                 git add deploy.yaml
-        //                 git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
-        //                 echo " "
-        //                 git remote -v
-        //                 echo " "
-                        
-        //                 git push https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git HEAD:main
-        //                 '''                        
-        //             }
-        //         }
-        //     }
-        // }
     }
 }
