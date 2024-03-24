@@ -4,8 +4,6 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
-        DAMDAM = '018a1d01-02a7-4854-b556-c77635ada871'
-
     }
 
     stages {
@@ -14,7 +12,7 @@ pipeline {
            steps {
                 script {
                     git branch: 'main',
-                        credentialsId: '018a1d01-02a7-4854-b556-c77635ada871',
+                        credentialsId: 'damdamYO',
                         url: 'https://github.com/sid14581/pipeline_project.git'
                 }
            }           
@@ -49,7 +47,7 @@ pipeline {
             steps {
                 script {
                     git branch: 'main',
-                        credentialsId: '018a1d01-02a7-4854-b556-c77635ada871',
+                        credentialsId: 'damdamYO',
                         url: 'https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git'
                 }
             }
@@ -59,7 +57,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([string(credentialsId: "${DAMDAM}", variable: 'GITHUB_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'damdamYO', variable: 'GITHUB_TOKEN')]) {
                         sh '''
 
                         cd /var/jenkins_home/workspace/Pipeline_execution/deploy/
