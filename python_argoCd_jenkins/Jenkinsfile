@@ -96,7 +96,7 @@ pipeline {
 >>>>>>> e492ce74fd362c26c65fc9fe7f759e077dba90a4
                         cat deploy.yaml
                         
-                        sed -i "s@sid716.*@sid716/jenkins_argocd_pipelines_samples:${BUILD_NUMBER}@g" deploy.yaml
+                        sed -i "s@sid716.*@sid716/jenkins_argocd_pipelines_sample:${BUILD_NUMBER}@g" deploy.yaml
                         cat deploy.yaml
 
                         git add deploy.yaml
