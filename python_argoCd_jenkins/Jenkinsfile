@@ -7,16 +7,6 @@ pipeline {
     }
 
     stages {
-<<<<<<< HEAD
-        
-                
-        stage('Checkout'){
-           steps {
-                git credentialsId: '0216668a-1ad3-4e4d-97e6-14eed63e2da2', 
-                url: 'https://github.com/iam-veeramalla/cicd-end-to-end',
-                branch: 'main'
-           }
-=======
                         
         stage('Checkout'){
            steps {
@@ -26,7 +16,6 @@ pipeline {
                         url: 'https://github.com/sid14581/pipeline_project.git'
                 }
            }           
->>>>>>> e492ce74fd362c26c65fc9fe7f759e077dba90a4
         }
 
         stage('Build Docker'){
@@ -34,11 +23,9 @@ pipeline {
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-<<<<<<< HEAD
-                    C:\ProgramData\Jenkins\.jenkins\workspace\Pipelines\python_argoCd_jenkins\
-=======
+                    
                     cd  /var/jenkins_home/workspace/Pipeline_execution/python_argoCd_jenkins/
->>>>>>> e492ce74fd362c26c65fc9fe7f759e077dba90a4
+
                     docker build -t sid716/jenkins_argocd_pipelines_sample:${BUILD_NUMBER} .
                     '''
                 }
@@ -56,23 +43,6 @@ pipeline {
                 }
             }
         }
-<<<<<<< HEAD
-        
-        stage('Checkout K8S manifest SCM'){
-            steps {
-                git credentialsId: '0216668a-1ad3-4e4d-97e6-14eed63e2da2', 
-                url: 'https://github.com/sid14581/Suppport_pipeline_argoCD_k8s.git',
-                branch: 'main'
-            }
-        }
-        
-        stage('Update K8S manifest & push to Repo'){
-            steps {
-                script{
-                    withCredentials([usernamePassword(credentialsId: '0216668a-1ad3-4e4d-97e6-14eed63e2da2', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        sh '''
-=======
-
 
         stage('Checkout K8S manifest SCM'){
             steps {
@@ -93,7 +63,6 @@ pipeline {
 
                         cd /var/jenkins_home/workspace/Pipeline_execution/deploy/
 
->>>>>>> e492ce74fd362c26c65fc9fe7f759e077dba90a4
                         cat deploy.yaml
                         
                         sed -i "s@sid716.*@sid716/jenkins_argocd_pipelines_sample:${BUILD_NUMBER}@g" deploy.yaml
