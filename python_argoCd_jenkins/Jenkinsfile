@@ -23,7 +23,8 @@ pipeline {
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-                    
+                    sudo chown 1000:1000 -R /var/run/docker.sock
+                     
                     cd  /var/jenkins_home/workspace/Pipeline_execution/python_argoCd_jenkins/
 
                     docker build -t sid716/jenkins_argocd_pipelines_sample:${BUILD_NUMBER} .
